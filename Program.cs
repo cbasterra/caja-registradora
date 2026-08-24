@@ -3,6 +3,8 @@ const decimal PorcentajeDescuentoAlto = 0.10m;
 const decimal PorcentajeDescuentoMedio = 0.05m;
 const decimal UmbralDescuentoAlto = 50000;
 const decimal UmbralDescuentoMedio = 20000;
+const decimal PorcentajeDescuentoEfectivo = 0.10m;
+const decimal PorcentajeRecargoCredito = 0.15m;
 
 Console.WriteLine($"=== {NombreComercio} ===");
 
@@ -69,10 +71,56 @@ else
 decimal descuento = subtotal * porcentajeDescuento;
 decimal totalConDescuento = subtotal - descuento;
 
+int medioPago = 0;
+bool medioPagoValido = false;
+
+do
+{
+    Console.WriteLine();
+    Console.WriteLine("Medio de pago:");
+    Console.WriteLine("1 - Efectivo");
+    Console.WriteLine("2 - Débito");
+    Console.WriteLine("3 - Crédito");
+    Console.Write("Opción: ");
+    medioPago = int.Parse(Console.ReadLine());
+
+    switch (medioPago)
+    {
+        case 1:
+        case 2:
+        case 3:
+            medioPagoValido = true;
+            break;
+        default:
+            Console.WriteLine("Opción inválida.");
+            break;
+    }
+
+} while (!medioPagoValido);
+
+decimal recargo = 0;
+decimal descuentoEfectivo = 0;
+decimal totalFinal = totalConDescuento;
+
+switch (medioPago)
+{
+    case 1:
+        descuentoEfectivo = totalConDescuento * PorcentajeDescuentoEfectivo;
+        totalFinal = totalConDescuento - descuentoEfectivo;
+        break;
+    case 2:
+        totalFinal = totalConDescuento;
+        break;
+    case 3:
+        recargo = totalConDescuento * PorcentajeRecargoCredito;
+        totalFinal = totalConDescuento + recargo;
+        break;
+}
+
 Console.WriteLine();
 Console.WriteLine($"Cantidad de productos: {cantidadProductos}");
 Console.WriteLine($"Subtotal: ${subtotal}");
-Console.WriteLine($"Descuento aplicado: ${descuento}");
-Console.WriteLine($"Total con descuento: ${totalConDescuento}");
+Console.WriteLine($"Descuento: ${descuento}");
+Console.WriteLine($"Total: ${totalFinal}");
 
 Console.ReadLine();
