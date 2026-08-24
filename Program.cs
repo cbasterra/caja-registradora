@@ -99,13 +99,12 @@ do
 } while (!medioPagoValido);
 
 decimal recargo = 0;
-decimal descuentoEfectivo = 0;
 decimal totalFinal = totalConDescuento;
 
 switch (medioPago)
 {
     case 1:
-        descuentoEfectivo = totalConDescuento * PorcentajeDescuentoEfectivo;
+        decimal descuentoEfectivo = totalConDescuento * PorcentajeDescuentoEfectivo;
         totalFinal = totalConDescuento - descuentoEfectivo;
         break;
     case 2:
@@ -118,9 +117,23 @@ switch (medioPago)
 }
 
 Console.WriteLine();
-Console.WriteLine($"Cantidad de productos: {cantidadProductos}");
-Console.WriteLine($"Subtotal: ${subtotal}");
-Console.WriteLine($"Descuento: ${descuento}");
-Console.WriteLine($"Total: ${totalFinal}");
+
+string linea = "";
+for (int i = 0; i < 30; i++)
+{
+    linea += "-";
+}
+
+Console.WriteLine(linea);
+Console.WriteLine($"       {NombreComercio}");
+Console.WriteLine(linea);
+Console.WriteLine($"Cajero: {nombreCajero}");
+Console.WriteLine($"Productos: {cantidadProductos}");
+Console.WriteLine($"Subtotal: {subtotal}");
+Console.WriteLine($"Descuento: {descuento}");
+Console.WriteLine($"Recargo: {recargo}");
+Console.WriteLine(linea);
+Console.WriteLine($"TOTAL: {totalFinal}");
+Console.WriteLine(linea);
 
 Console.ReadLine();
