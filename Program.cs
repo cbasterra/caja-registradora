@@ -1,4 +1,8 @@
 ﻿const string NombreComercio = "KIOSCO EL RECREO";
+const decimal PorcentajeDescuentoAlto = 0.10m;
+const decimal PorcentajeDescuentoMedio = 0.05m;
+const decimal UmbralDescuentoAlto = 50000;
+const decimal UmbralDescuentoMedio = 20000;
 
 Console.WriteLine($"=== {NombreComercio} ===");
 
@@ -46,8 +50,29 @@ do
 
 } while (opcion != 2);
 
+decimal subtotal = total;
+decimal porcentajeDescuento;
+
+if (subtotal > UmbralDescuentoAlto)
+{
+    porcentajeDescuento = PorcentajeDescuentoAlto;
+}
+else if (subtotal > UmbralDescuentoMedio)
+{
+    porcentajeDescuento = PorcentajeDescuentoMedio;
+}
+else
+{
+    porcentajeDescuento = 0;
+}
+
+decimal descuento = subtotal * porcentajeDescuento;
+decimal totalConDescuento = subtotal - descuento;
+
 Console.WriteLine();
 Console.WriteLine($"Cantidad de productos: {cantidadProductos}");
-Console.WriteLine($"Total: ${total}");
+Console.WriteLine($"Subtotal: ${subtotal}");
+Console.WriteLine($"Descuento aplicado: ${descuento}");
+Console.WriteLine($"Total con descuento: ${totalConDescuento}");
 
 Console.ReadLine();
